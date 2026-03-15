@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI in the City — Практикум для женщин</title>
+    <meta name="description" content="6-недельный практикум для женщин, которые хотят перестать просто переписываться с AI и начать с ним настоящее взаимодействие.">
+    <meta property="og:title" content="AI in the City">
+    <meta property="og:description" content="Практикум: от хаотичных чатов к осознанному партнёрству с AI">
+    <meta property="og:image" content="images/hero.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --crimson: #c8102e;
+            --crimson-dark: #9a0c22;
+            --ink: #1a1216;
+            --ink-light: #3d2f36;
+            --ink-muted: #6b5a63;
+            --sand: #f5f0eb;
+            --sand-warm: #ede6df;
+            --white: #faf8f6;
+            --card-bg: #ffffff;
+            --border: rgba(26, 18, 22, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--ink);
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ─── NAV ─── */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(250, 248, 246, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: padding 0.3s;
+        }
+
+        .nav.scrolled { padding: 0.8rem 2rem; }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--ink);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-logo span { color: var(--crimson); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--ink); }
+
+        .nav-cta {
+            font-size: 0.8rem !important;
+            color: var(--white) !important;
+            background: var(--ink);
+            padding: 0.6rem 1.4rem;
+            border-radius: 6px;
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta:hover { background: var(--ink-light) !important; }
+
+        @media (max-width: 640px) {
+            .nav-links a:not(.nav-cta) { display: none; }
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 8rem 4rem 4rem;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 7rem 2rem 3rem;
+                gap: 2rem;
+                min-height: auto;
+            }
+            .hero-visual { order: -1; max-width: 360px; margin: 0 auto; }
+        }
+
+        .hero-text { max-width: 520px; }
+
+        .hero-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--crimson);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--crimson);
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--ink-muted);
+            margin-bottom: 2.5rem;
+            max-width: 440px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--crimson);
+            color: #fff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.9rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--crimson-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:focus-visible {
+            outline: 2px solid var(--crimson);
+            outline-offset: 3px;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            font-size: 0.9rem;
+            color: var(--ink-muted);
+            text-decoration: none;
+            font-weight: 400;
+            padding: 0.9rem 0;
+            transition: color 0.2s;
+        }
+
+        .btn-secondary:hover { color: var(--ink); }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-visual img {
+            width: 100%;
+            border-radius: 16px;
+            display: block;
+            object-fit: cover;
+            object-position: center 15%;
+            clip-path: inset(6% 0 0 6% round 16px);
+        }
+
+        /* ─── MARQUEE ─── */
+        .marquee {
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-track {
+            display: inline-flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        .marquee-item {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--ink-muted);
+            padding: 0 3rem;
+        }
+
+        .marquee-item .dot {
+            color: var(--crimson);
+            margin: 0 0.5rem;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ─── VOICEOVER ─── */
+        .voiceover {
+            padding: 6rem 2rem;
+            max-width: 640px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .voiceover p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--ink-muted);
+            line-height: 2.2;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .voiceover p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .voiceover p:last-child {
+            color: var(--crimson);
+            font-weight: 400;
+            margin-top: 0.5rem;
+        }
+
+        /* ─── ABOUT ─── */
+        .about {
+            padding: 6rem 2rem;
+            background: var(--sand);
+        }
+
+        .about-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+        }
+
+        .about-lead {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+            color: var(--ink);
+            line-height: 1.4;
+            margin-bottom: 2rem;
+            letter-spacing: -0.01em;
+            font-weight: 400;
+        }
+
+        .about-lead em {
+            font-style: italic;
+            color: var(--crimson);
+        }
+
+        .about-roles {
+            list-style: none;
+        }
+
+        .about-roles li {
+            padding: 0.6rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+            font-size: 0.95rem;
+            color: var(--ink-light);
+            line-height: 1.5;
+            border-left: 2px solid var(--crimson);
+            margin-bottom: 0.5rem;
+        }
+
+        .about-what-title {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--crimson);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-features {
+            list-style: none;
+        }
+
+        .about-features li {
+            padding: 0.7rem 0;
+            font-size: 0.95rem;
+            color: var(--ink-light);
+            line-height: 1.6;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .about-features li:last-child { border-bottom: none; }
+
+        .about-note {
+            margin-top: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--ink-muted);
+            line-height: 1.6;
+        }
+
+        .about-closing {
+            max-width: 960px;
+            margin: 3rem auto 0;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .about-closing p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.15rem;
+            color: var(--ink-muted);
+            line-height: 2;
+        }
+
+        .about-closing p:last-child {
+            color: var(--crimson);
+        }
+
+        /* ─── IMAGE BREAK ─── */
+        .image-break {
+            position: relative;
+            height: 50vh;
+            min-height: 300px;
+            overflow: hidden;
+        }
+
+        .image-break img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 10%;
+        }
+
+        /* ─── FORMAT ─── */
+        .format {
+            padding: 6rem 2rem;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--crimson);
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            color: var(--ink);
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+
+        .section-desc {
+            color: var(--ink-muted);
+            font-size: 1rem;
+            margin-bottom: 3rem;
+            max-width: 480px;
+        }
+
+        .format-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .format-grid { grid-template-columns: 1fr; }
+        }
+
+        .format-card {
+            padding: 2rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--card-bg);
+        }
+
+        .format-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--ink);
+            margin-bottom: 1.2rem;
+            font-weight: 400;
+        }
+
+        .format-card ul { list-style: none; }
+
+        .format-card li {
+            padding: 0.45rem 0;
+            font-size: 0.9rem;
+            color: var(--ink-light);
+            line-height: 1.5;
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+        }
+
+        .format-card li::before {
+            content: '';
+            flex-shrink: 0;
+            width: 4px;
+            height: 4px;
+            background: var(--crimson);
+            border-radius: 50%;
+            margin-top: 0.5rem;
+        }
+
+        /* ─── PROGRAM ─── */
+        .program {
+            padding: 6rem 2rem;
+            background: var(--sand);
+        }
+
+        .program-inner {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .program-header {
+            margin-bottom: 3rem;
+        }
+
+        .program-meta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+        }
+
+        .episode {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .episode:first-of-type {
+            border-top: 1px solid var(--border);
+        }
+
+        .episode-header {
+            padding: 1.5rem 0;
+            cursor: pointer;
+            display: flex;
+            align-items: baseline;
+            gap: 1.5rem;
+            user-select: none;
+        }
+
+        .episode-header:focus-visible {
+            outline: 2px solid var(--crimson);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        .ep-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--crimson);
+            flex-shrink: 0;
+            width: 2rem;
+        }
+
+        .ep-title-wrap { flex: 1; }
+
+        .ep-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--ink);
+            line-height: 1.35;
+            font-weight: 400;
+        }
+
+        .ep-preview {
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+
+        .ep-toggle {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ink-muted);
+            font-size: 0.65rem;
+            transition: transform 0.3s;
+        }
+
+        .episode.open .ep-toggle { transform: rotate(180deg); }
+
+        .ep-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .episode.open .ep-body { max-height: 500px; }
+
+        .ep-body-inner {
+            padding: 0 0 1.5rem 3.5rem;
+        }
+
+        .ep-question {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--crimson-dark);
+            padding-left: 1rem;
+            border-left: 2px solid var(--crimson);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .ep-goal {
+            font-size: 0.9rem;
+            color: var(--ink-light);
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .ep-goal strong { color: var(--ink); font-weight: 500; }
+
+        .ep-topics { list-style: none; }
+
+        .ep-topics li {
+            padding: 0.25rem 0;
+            font-size: 0.85rem;
+            color: var(--ink-muted);
+            line-height: 1.5;
+            padding-left: 0.8rem;
+            position: relative;
+        }
+
+        .ep-topics li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6rem;
+            width: 3px;
+            height: 3px;
+            background: var(--ink-muted);
+            border-radius: 50%;
+        }
+
+        /* ─── AUTHOR ─── */
+        .author {
+            padding: 6rem 2rem;
+            max-width: 720px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        @media (max-width: 640px) {
+            .author { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
+            .author-photo { margin: 0 auto; }
+        }
+
+        .author-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .author-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--crimson);
+            margin-bottom: 0.8rem;
+        }
+
+        .author-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--ink);
+            margin-bottom: 1rem;
+        }
+
+        .author-bio {
+            font-size: 0.95rem;
+            color: var(--ink-muted);
+            line-height: 1.7;
+        }
+
+        /* ─── CTA ─── */
+        .cta {
+            padding: 6rem 2rem;
+            background: var(--ink);
+            text-align: center;
+        }
+
+        .cta-inner {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            font-weight: 400;
+        }
+
+        .cta h2 em {
+            font-style: italic;
+            color: var(--crimson);
+        }
+
+        .cta-desc {
+            font-size: 1rem;
+            color: rgba(250, 248, 246, 0.5);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .cta-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .cta-stat-label {
+            font-size: 0.75rem;
+            color: rgba(250, 248, 246, 0.4);
+            margin-top: 0.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background: var(--crimson);
+            color: #fff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-cta:hover {
+            background: var(--crimson-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-cta:focus-visible {
+            outline: 2px solid var(--crimson);
+            outline-offset: 3px;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--ink-muted);
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        footer a {
+            color: var(--ink-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover { color: var(--ink); }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        /* ─── ANIMATIONS ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="nav">
+        <a href="#" class="nav-logo"><span>AI</span> in the City</a>
+        <div class="nav-links">
+            <a href="#about">О проекте</a>
+            <a href="#program">Программа</a>
+            <a href="#cta" class="nav-cta">Записаться</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-text">
+            <p class="hero-label">Практикум для женщин</p>
+            <h1>AI <em>in the</em> City</h1>
+            <p class="hero-desc">Как перестать просто переписываться с AI и начать с ним настоящее взаимодействие. 6 недель практики, после которых он наконец начнёт тебя понимать.</p>
+            <div class="hero-actions">
+                <a href="#cta" class="btn-primary">Записаться на практикум</a>
+                <a href="#program" class="btn-secondary">Смотреть программу &darr;</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <img src="images/logo-portrait.png" alt="AI in the City — Екатерина">
+        </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee">
+        <div class="marquee-track">
+            <span class="marquee-item">не каждый чат заслуживает второго свидания <span class="dot">&middot;</span></span>
+            <span class="marquee-item">48 чатов и ни одного серьёзного <span class="dot">&middot;</span></span>
+            <span class="marquee-item">red flags в промтах <span class="dot">&middot;</span></span>
+            <span class="marquee-item">он не помнит — может, дело не в нём <span class="dot">&middot;</span></span>
+            <span class="marquee-item">папки спасают отношения <span class="dot">&middot;</span></span>
+            <span class="marquee-item">дорогой, у нас должны быть правила <span class="dot">&middot;</span></span>
+            <span class="marquee-item">может ли AI вести меня по жизни <span class="dot">&middot;</span></span>
+            <span class="marquee-item">не каждый чат заслуживает второго свидания <span class="dot">&middot;</span></span>
+            <span class="marquee-item">48 чатов и ни одного серьёзного <span class="dot">&middot;</span></span>
+            <span class="marquee-item">red flags в промтах <span class="dot">&middot;</span></span>
+            <span class="marquee-item">он не помнит — может, дело не в нём <span class="dot">&middot;</span></span>
+            <span class="marquee-item">папки спасают отношения <span class="dot">&middot;</span></span>
+            <span class="marquee-item">дорогой, у нас должны быть правила <span class="dot">&middot;</span></span>
+            <span class="marquee-item">может ли AI вести меня по жизни <span class="dot">&middot;</span></span>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="about-inner reveal">
+            <div>
+                <p class="about-lead">Пространство для женщин, которые хотят, чтобы AI стал <em>настоящим партнёром</em></p>
+                <ul class="about-roles">
+                    <li>Партнёром в мышлении</li>
+                    <li>Инструментом творчества</li>
+                    <li>Поддержкой в работе и проектах</li>
+                    <li>И иногда даже собеседником</li>
+                </ul>
+            </div>
+            <div>
+                <p class="about-what-title">Здесь можно</p>
+                <ul class="about-features">
+                    <li>Делиться находками и инструментами</li>
+                    <li>Задавать вопросы и экспериментировать</li>
+                    <li>Обсуждать, как использовать AI в работе, творчестве и жизни</li>
+                    <li>Смотреть, как интеллект меняет наш способ думать и создавать</li>
+                </ul>
+                <p class="about-note">Это не технический чат и не курс. Это городской разговор о жизни, идеях и AI.</p>
+            </div>
+        </div>
+        <div class="about-closing reveal">
+            <p>Иногда это похоже на исследование. Иногда — на игру.</p>
+            <p>Бывает, что на ссору. Но чаще на хороший разговор.</p>
+        </div>
+    </section>
+
+    <!-- IMAGE BREAK -->
+    <section class="image-break">
+        <img src="images/hero.png" alt="AI in the City">
+    </section>
+
+    <!-- FORMAT -->
+    <section class="format" id="format">
+        <p class="section-label reveal">Как это устроено</p>
+        <h2 class="section-title reveal">Формула каждой встречи</h2>
+        <p class="section-desc reveal">Колонка-вопрос, разбор кейсов, практика, маленький вывод</p>
+        <div class="format-grid">
+            <div class="format-card reveal">
+                <h3>Практикум на 12 занятий</h3>
+                <ul>
+                    <li>6 недель</li>
+                    <li>2 встречи в неделю</li>
+                    <li>60 минут каждая</li>
+                    <li>Между встречами — девчачьи обсуждения</li>
+                </ul>
+            </div>
+            <div class="format-card reveal">
+                <h3>Механика каждой встречи</h3>
+                <ul>
+                    <li>10 мин — вход: вопрос серии</li>
+                    <li>20 мин — разбор принципа</li>
+                    <li>10 мин — практика вживую</li>
+                    <li>10 мин — разбор кейсов</li>
+                    <li>5 мин — обсуждение</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROGRAM -->
+    <section class="program" id="program">
+        <div class="program-inner">
+            <div class="program-header reveal">
+                <p class="section-label">Сезон первый</p>
+                <h2 class="section-title">Программа</h2>
+                <div class="program-meta">
+                    <span>7 серий</span>
+                    <span>12 встреч</span>
+                    <span>6 недель</span>
+                </div>
+            </div>
+
+            <div class="episode" tabindex="0" role="button" aria-expanded="false" onclick="toggleEp(this)">
+                <div class="episode-header">
+                    <span class="ep-num">01</span>
+                    <div class="ep-title-wrap">
+                        <div class="ep-title">AI, с которым всё несерьёзно</div>
+                        <div class="ep-preview">Встреча 1–2</div>
+                    </div>
+                    <span class="ep-toggle">&#x25BC;</span>
+                </div>
+                <div class="ep-body">
+                    <div class="ep-body-inner">
+                        <div class="ep-question">И я не могла не задуматься: если я пишу ему каждый день, почему у нас до сих пор нет системы?</div>
+                        <p class="ep-goal"><strong>Цель:</strong> Понять, как каждая участница уже использует ChatGPT и где теряет силу.</p>
+                        <ul class="ep-topics">
+                            <li>Чем отличается «задать вопрос» от «построить процесс»</li>
+                            <li>Типы использования AI: работа, контент, личная жизнь, обучение, рефлексия</li>
+                            <li>Где сейчас больше всего хаоса</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="episode" tabindex="0" role="button" aria-expanded="false" onclick="toggleEp(this)">
+                <div class="episode-header">
+                    <span class="ep-num">02</span>
+                    <div class="ep-title-wrap">
+                        <div class="ep-title">Не каждый чат заслуживает второго свидания</div>
+                        <div class="ep-preview">Встреча 3–4</div>
+                    </div>
+                    <span class="ep-toggle">&#x25BC;</span>
+                </div>
+                <div class="ep-body">
+                    <div class="ep-body-inner">
+                        <div class="ep-question">Почему у меня 48 чатов и ни одного, к которому хочется вернуться?</div>
+                        <p class="ep-goal"><strong>Цель:</strong> Показать, как отличать разовые чаты от долгих рабочих контуров.</p>
+                        <ul class="ep-topics">
+                            <li>Хаос одноразовых чатов</li>
+                            <li>Что должно жить в отдельной теме</li>
+                            <li>Как распознать «повторяющийся процесс»</li>
+                            <li>Логика контейнеров: личное, работа, контент, обучение</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="episode" tabindex="0" role="button" aria-expanded="false" onclick="toggleEp(this)">
+                <div class="episode-header">
+                    <span class="ep-num">03</span>
+                    <div class="ep-title-wrap">
+                        <div class="ep-title">Status: всё сложно, нужен контекст</div>
+                        <div class="ep-preview">Встреча 5–6</div>
+                    </div>
+                    <span class="ep-toggle">&#x25BC;</span>
+                </div>
+                <div class="ep-body">
+                    <div class="ep-body-inner">
+                        <div class="ep-question">Может ли AI понимать меня, если я каждый раз прихожу к нему как к новому человеку?</div>
+                        <p class="ep-goal"><strong>Цель:</strong> Объяснить, что такое контекст, память, проекты и почему без этого AI не становится партнером.</p>
+                        <ul class="ep-topics">
+                            <li>Разница между обычным чатом, проектом, памятью и инструкциями</li>
+                            <li>Как работает контекст</li>
+                            <li>Почему «он не помнит» часто означает «система не собрана»</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="episode" tabindex="0" role="button" aria-expanded="false" onclick="toggleEp(this)">
+                <div class="episode-header">
+                    <span class="ep-num">04</span>
+                    <div class="ep-title-wrap">
+                        <div class="ep-title">Дорогой, у нас должны быть правила</div>
+                        <div class="ep-preview">Встреча 7–8</div>
+                    </div>
+                    <span class="ep-toggle">&#x25BC;</span>
+                </div>
+                <div class="ep-body">
+                    <div class="ep-body-inner">
+                        <div class="ep-question">Можно ли построить хорошие отношения с AI, если ты не сказала, как с тобой вообще надо работать?</div>
+                        <p class="ep-goal"><strong>Цель:</strong> Научить писать понятные инструкции для работы внутри проектов.</p>
+                        <ul class="ep-topics">
+                            <li>Зачем нужны проектные инструкции</li>
+                            <li>Как задать стиль ответов</li>
+                            <li>Как задать формат: кратко или подробно, по шагам или свободно</li>
+                            <li>Как задать роль AI в проекте</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="episode" tabindex="0" role="button" aria-expanded="false" onclick="toggleEp(this)">
+                <div class="episode-header">
+                    <span class="ep-num">05</span>
+                    <div class="ep-title-wrap">
+                        <div class="ep-title">Папки спасают отношения</div>
+                        <div class="ep-preview">Встреча 9–10</div>
+                    </div>
+                    <span class="ep-toggle">&#x25BC;</span>
+                </div>
+                <div class="ep-body">
+                    <div class="ep-body-inner">
+                        <div class="ep-question">А что, если проблема была не в AI, а в том, что всё свалено в одно место?</div>
+                        <p class="ep-goal"><strong>Цель:</strong> Собрать рабочую архитектуру Projects.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="episode" tabindex="0" role="button" aria-expanded="false" onclick="toggleEp(this)">
+                <div class="episode-header">
+                    <span class="ep-num">06</span>
+                    <div class="ep-title-wrap">
+                        <div class="ep-title">Red flags в промтах</div>
+                        <div class="ep-preview">Встреча 11</div>
+                    </div>
+                    <span class="ep-toggle">&#x25BC;</span>
+                </div>
+                <div class="ep-body">
+                    <div class="ep-body-inner">
+                        <div class="ep-question">Он отвечает красиво. Но помогает ли он мне на самом деле?</div>
+                        <p class="ep-goal"><strong>Цель:</strong> Научить писать простые и сильные промты без магического мышления.</p>
+                        <ul class="ep-topics">
+                            <li>Слабые промты</li>
+                            <li>Перегруженные промты</li>
+                            <li>Промты без цели</li>
+                            <li>Сильная структура: контекст, задача, критерий результата, формат</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="episode" tabindex="0" role="button" aria-expanded="false" onclick="toggleEp(this)">
+                <div class="episode-header">
+                    <span class="ep-num">07</span>
+                    <div class="ep-title-wrap">
+                        <div class="ep-title">Может ли AI вести меня по жизни?</div>
+                        <div class="ep-preview">Встреча 12</div>
+                    </div>
+                    <span class="ep-toggle">&#x25BC;</span>
+                </div>
+                <div class="ep-body">
+                    <div class="ep-body-inner">
+                        <div class="ep-question">Можно ли доверить ему задачи, если у меня самой всё лежит кучей?</div>
+                        <p class="ep-goal"><strong>Цель:</strong> Научить использовать AI как партнера по задачам и фокусу.</p>
+                        <ul class="ep-topics">
+                            <li>Weekly planning</li>
+                            <li>Daily check-in</li>
+                            <li>Review и приоритизация</li>
+                            <li>Анти-перегруз</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- AUTHOR -->
+    <section class="author reveal" id="author">
+        <div class="author-photo">
+            <img src="images/logo-dark.png" alt="Екатерина — автор практикума">
+        </div>
+        <div>
+            <p class="author-label">Кто ведёт</p>
+            <h3 class="author-name">Катя</h3>
+            <p class="author-bio">Автор и ведущая пространства AI in the City. Последние пять лет работаю с нейросетями — от технической стороны обучения моделей до того, как AI можно использовать в работе, идеях и повседневной жизни.</p>
+            <p class="author-bio" style="margin-top:1rem;">На этом практикуме я скорее в роли Кэрри Брэдшоу: открываю темы, задаю вопросы и помогаю вам исследовать свои отношения с AI — не только как с технологией, но и как с интеллектуальным партнёром.</p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="cta">
+        <div class="cta-inner">
+            <h2>Готова к <em>серьёзным</em> отношениям?</h2>
+            <p class="cta-desc">6 недель, 12 встреч, и ваши отношения с AI никогда не будут прежними</p>
+            <div class="cta-stats">
+                <div>
+                    <div class="cta-stat-num">6</div>
+                    <div class="cta-stat-label">недель</div>
+                </div>
+                <div>
+                    <div class="cta-stat-num">12</div>
+                    <div class="cta-stat-label">встреч</div>
+                </div>
+                <div>
+                    <div class="cta-stat-num">60</div>
+                    <div class="cta-stat-label">минут</div>
+                </div>
+            </div>
+            <a href="#" class="btn-cta">Записаться на практикум</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <span>AI in the City &copy; 2026</span>
+        <div class="footer-links">
+            <a href="#">Telegram</a>
+            <a href="#">Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleEp(el) {
+            const isOpen = el.classList.toggle('open');
+            el.setAttribute('aria-expanded', isOpen);
+        }
+
+        document.querySelectorAll('.episode').forEach(ep => {
+            ep.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleEp(ep);
+                }
+            });
+        });
+
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal, .voiceover p').forEach(el => obs.observe(el));
+
+        const nav = document.querySelector('.nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        }, { passive: true });
+    </script>
+</body>
+</html>

@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI in the City</title>
+    <meta name="description" content="6-недельный практикум для женщин: от хаотичных чатов к осознанному партнёрству с AI">
+    <meta property="og:title" content="AI in the City">
+    <meta property="og:description" content="Практикум для женщин, которые хотят построить настоящие отношения с AI">
+    <meta property="og:image" content="images/hero.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --crimson: #c8102e;
+            --crimson-soft: rgba(200, 16, 46, 0.08);
+            --ink: #1a1216;
+            --ink-80: #3d2f36;
+            --ink-50: #7a6b72;
+            --ink-30: #a89da3;
+            --sand: #f3ede7;
+            --warm: #faf7f4;
+            --white: #fdfcfb;
+            --border: rgba(26, 18, 22, 0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--ink);
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ═══ NAV ═══ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav.scrolled {
+            padding: 1rem 3rem;
+            background: rgba(253, 252, 251, 0.8);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--ink);
+            text-decoration: none;
+            letter-spacing: -0.03em;
+        }
+
+        .nav-logo span { color: var(--crimson); }
+
+        .nav-right {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 0.82rem;
+            color: var(--ink-50);
+            text-decoration: none;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover { color: var(--ink); }
+
+        .nav-btn {
+            font-size: 0.82rem;
+            color: var(--white);
+            background: var(--ink);
+            padding: 0.55rem 1.3rem;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover { background: var(--ink-80); transform: translateY(-1px); }
+
+        @media (max-width: 768px) {
+            .nav { padding: 1.2rem 1.5rem; }
+            .nav-link { display: none; }
+        }
+
+        /* ═══ HERO ═══ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 10rem 3rem 6rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) {
+            .hero { flex-direction: column-reverse; padding: 8rem 1.5rem 4rem; gap: 3rem; }
+        }
+
+        .hero-left {
+            flex: 1.2;
+            padding-right: 4rem;
+        }
+
+        @media (max-width: 900px) { .hero-left { padding-right: 0; } }
+
+        .hero-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--crimson);
+            background: var(--crimson-soft);
+            padding: 0.45rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5rem, 7vw, 6rem);
+            font-weight: 700;
+            line-height: 1.02;
+            letter-spacing: -0.04em;
+            color: var(--ink);
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 i {
+            font-weight: 400;
+            color: var(--crimson);
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            line-height: 1.75;
+            color: var(--ink-50);
+            max-width: 420px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .cta-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--crimson);
+            color: #fff;
+            font-size: 0.88rem;
+            font-weight: 400;
+            padding: 0.85rem 2rem;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cta-pill:hover { background: #a80d25; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,16,46,0.2); }
+
+        .cta-pill:focus-visible { outline: 2px solid var(--crimson); outline-offset: 3px; }
+
+        .cta-ghost {
+            font-size: 0.88rem;
+            color: var(--ink-50);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        .cta-ghost:hover { color: var(--ink); }
+
+        .hero-right {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .hero-img-wrap {
+            width: 420px;
+            max-width: 100%;
+            position: relative;
+        }
+
+        .hero-img-wrap img {
+            width: 100%;
+            border-radius: 20px;
+            display: block;
+            clip-path: inset(5% 0 0 5% round 20px);
+        }
+
+        /* ═══ MARQUEE ═══ */
+        .marquee {
+            padding: 1.8rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-track {
+            display: inline-flex;
+            animation: slide 40s linear infinite;
+        }
+
+        .marquee-item {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--ink-30);
+            padding: 0 2.5rem;
+            transition: color 0.3s;
+        }
+
+        .marquee:hover .marquee-item { color: var(--ink-50); }
+
+        .marquee-sep { color: var(--crimson); opacity: 0.4; }
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ═══ SPACER ═══ */
+        .spacer { height: clamp(80px, 12vw, 160px); }
+        .spacer-sm { height: clamp(40px, 6vw, 80px); }
+
+        /* ═══ SECTION UTILITIES ═══ */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+        @media (max-width: 768px) { .container { padding: 0 1.5rem; } }
+
+        .label {
+            font-size: 0.62rem;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--crimson);
+            margin-bottom: 1.2rem;
+        }
+
+        .heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            color: var(--ink);
+            margin-bottom: 1rem;
+        }
+
+        .heading strong { font-weight: 700; }
+
+        .subdesc {
+            font-size: 0.95rem;
+            color: var(--ink-50);
+            line-height: 1.7;
+            font-weight: 300;
+            max-width: 480px;
+        }
+
+        /* ═══ ABOUT ═══ */
+        .about {
+            background: var(--sand);
+            padding: clamp(80px, 12vw, 160px) 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 5rem;
+        }
+
+        @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
+
+        .about-lead {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 2.8vw, 2rem);
+            font-weight: 400;
+            color: var(--ink);
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+            margin-bottom: 2.5rem;
+        }
+
+        .about-lead em { font-style: italic; color: var(--crimson); }
+
+        .about-roles {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .about-roles li {
+            font-size: 0.92rem;
+            color: var(--ink-80);
+            padding-left: 1rem;
+            border-left: 2px solid var(--crimson);
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .about-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .about-features li {
+            padding: 1rem 0;
+            font-size: 0.92rem;
+            color: var(--ink-80);
+            border-bottom: 1px solid var(--border);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .about-features li:first-child { border-top: 1px solid var(--border); }
+
+        .about-note {
+            margin-top: 2rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--ink-50);
+        }
+
+        .about-closing {
+            margin-top: clamp(60px, 8vw, 100px);
+            text-align: center;
+        }
+
+        .about-closing p {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--ink-50);
+            line-height: 2;
+        }
+
+        .about-closing p:last-child { color: var(--crimson); }
+
+        /* ═══ IMAGE BREAK ═══ */
+        .img-break {
+            position: relative;
+            height: 60vh;
+            min-height: 360px;
+            overflow: hidden;
+        }
+
+        .img-break img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 5%;
+        }
+
+        /* ═══ FORMAT ═══ */
+        .format-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 640px) { .format-grid { grid-template-columns: 1fr; } }
+
+        .f-card {
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: var(--white);
+            transition: border-color 0.3s;
+        }
+
+        .f-card:hover { border-color: rgba(200,16,46,0.15); }
+
+        .f-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: 1.5rem;
+        }
+
+        .f-card ul { list-style: none; }
+
+        .f-card li {
+            padding: 0.4rem 0;
+            font-size: 0.88rem;
+            color: var(--ink-80);
+            font-weight: 300;
+            display: flex;
+            gap: 0.7rem;
+            align-items: baseline;
+        }
+
+        .f-card li::before {
+            content: '';
+            flex-shrink: 0;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--crimson);
+            margin-top: 0.55rem;
+        }
+
+        /* ═══ PROGRAM ═══ */
+        .program { background: var(--warm); padding: clamp(80px, 12vw, 160px) 0; }
+
+        .program-inner { max-width: 700px; margin: 0 auto; }
+
+        .program-meta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.2rem;
+            font-size: 0.8rem;
+            color: var(--ink-30);
+            letter-spacing: 0.05em;
+        }
+
+        .ep {
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .ep:first-of-type { border-top: 1px solid var(--border); }
+
+        .ep-head {
+            padding: 1.8rem 0;
+            cursor: pointer;
+            display: flex;
+            align-items: baseline;
+            gap: 1.8rem;
+            user-select: none;
+        }
+
+        .ep-head:focus-visible { outline: 2px solid var(--crimson); outline-offset: 2px; border-radius: 4px; }
+
+        .ep-n {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            color: var(--crimson);
+            flex-shrink: 0;
+            width: 2rem;
+            font-style: italic;
+        }
+
+        .ep-info { flex: 1; }
+
+        .ep-t {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: var(--ink);
+            font-weight: 400;
+            line-height: 1.35;
+        }
+
+        .ep-sub {
+            font-size: 0.78rem;
+            color: var(--ink-30);
+            margin-top: 0.3rem;
+            letter-spacing: 0.03em;
+        }
+
+        .ep-arrow {
+            flex-shrink: 0;
+            font-size: 0.55rem;
+            color: var(--ink-30);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .ep.open .ep-arrow { transform: rotate(180deg); }
+
+        .ep-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .ep.open .ep-body { max-height: 500px; }
+
+        .ep-inner { padding: 0 0 2rem 3.8rem; }
+
+        .ep-q {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--crimson);
+            padding-left: 1rem;
+            border-left: 2px solid var(--crimson);
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+            opacity: 0.85;
+        }
+
+        .ep-goal {
+            font-size: 0.88rem;
+            color: var(--ink-80);
+            line-height: 1.6;
+            font-weight: 300;
+            margin-bottom: 0.8rem;
+        }
+
+        .ep-goal strong { font-weight: 500; color: var(--ink); }
+
+        .ep-topics { list-style: none; }
+
+        .ep-topics li {
+            font-size: 0.82rem;
+            color: var(--ink-50);
+            padding: 0.2rem 0 0.2rem 0.8rem;
+            position: relative;
+            font-weight: 300;
+        }
+
+        .ep-topics li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6rem;
+            width: 3px;
+            height: 3px;
+            background: var(--ink-30);
+            border-radius: 50%;
+        }
+
+        /* ═══ AUTHOR ═══ */
+        .author {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 3.5rem;
+            align-items: start;
+        }
+
+        @media (max-width: 640px) {
+            .author { grid-template-columns: 1fr; gap: 2rem; }
+            .author-photo { max-width: 200px; }
+        }
+
+        .author-photo {
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+
+        .author-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--ink);
+            margin-bottom: 1.2rem;
+            font-weight: 400;
+        }
+
+        .author-bio {
+            font-size: 0.92rem;
+            color: var(--ink-50);
+            line-height: 1.75;
+            font-weight: 300;
+        }
+
+        .author-bio + .author-bio { margin-top: 1rem; }
+
+        .author-hook {
+            margin-top: 1.2rem;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--crimson);
+            opacity: 0.8;
+        }
+
+        /* ═══ CTA ═══ */
+        .cta-section {
+            background: var(--ink);
+            padding: clamp(100px, 14vw, 200px) 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -300px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(200,16,46,0.08) 0%, transparent 70%);
+        }
+
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--white);
+            font-weight: 400;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+
+        .cta-section h2 em {
+            font-style: italic;
+            color: var(--crimson);
+        }
+
+        .cta-desc {
+            font-size: 1rem;
+            color: rgba(250, 248, 246, 0.4);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .cta-nums {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .cta-num-val {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--white);
+            font-weight: 400;
+        }
+
+        .cta-num-lbl {
+            font-size: 0.65rem;
+            color: rgba(250, 248, 246, 0.3);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+
+        .cta-big {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--crimson);
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 400;
+            padding: 1rem 2.5rem;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cta-big:hover { background: #a80d25; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(200,16,46,0.25); }
+
+        .cta-big:focus-visible { outline: 2px solid var(--crimson); outline-offset: 4px; }
+
+        /* ═══ FOOTER ═══ */
+        footer {
+            padding: 2.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--ink-30);
+        }
+
+        @media (max-width: 640px) { footer { flex-direction: column; gap: 1rem; } }
+
+        footer a {
+            color: var(--ink-30);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover { color: var(--ink); }
+
+        .foot-links { display: flex; gap: 1.5rem; }
+
+        /* ═══ REVEAL ═══ */
+        .rv {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .rv.vis { opacity: 1; transform: none; }
+
+        .rv-d1 { transition-delay: 0.08s; }
+        .rv-d2 { transition-delay: 0.16s; }
+        .rv-d3 { transition-delay: 0.24s; }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+    <a href="#" class="nav-logo"><span>AI</span> in the City</a>
+    <div class="nav-right">
+        <a href="#about" class="nav-link">О проекте</a>
+        <a href="#program" class="nav-link">Программа</a>
+        <a href="#cta" class="nav-btn">Записаться</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-left">
+        <span class="hero-tag rv">Практикум для женщин &middot; 6 недель</span>
+        <h1 class="rv rv-d1">AI <i>in the</i><br>City</h1>
+        <p class="hero-sub rv rv-d2">Как перестать просто переписываться с AI и начать с ним настоящее взаимодействие. 6 недель практики, после которых он наконец начнёт тебя понимать.</p>
+        <div class="hero-ctas rv rv-d3">
+            <a href="#cta" class="cta-pill">Записаться &rarr;</a>
+            <a href="#program" class="cta-ghost">Программа</a>
+        </div>
+    </div>
+    <div class="hero-right rv rv-d2">
+        <div class="hero-img-wrap">
+            <img src="images/logo-portrait.png" alt="AI in the City">
+        </div>
+    </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+    <div class="marquee-track">
+        <span class="marquee-item">не каждый чат заслуживает второго свидания</span>
+        <span class="marquee-sep">&middot;</span>
+        <span class="marquee-item">48 чатов и ни одного серьёзного</span>
+        <span class="marquee-sep">&middot;</span>
+        <span class="marquee-item">red flags в промтах</span>
+        <span class="marquee-sep">&middot;</span>
+        <span class="marquee-item">он не помнит — может, дело не в нём</span>
+        <span class="marquee-sep">&middot;</span>
+        <span class="marquee-item">папки спасают отношения</span>
+        <span class="marquee-sep">&middot;</span>
+        <span class="marquee-item">дорогой, у нас должны быть правила</span>
+        <span class="marquee-sep">&middot;</span>
+        <span class="marquee-item">может ли AI вести меня по жизни</span>
+        <span class="marquee-sep">&middot;</span>
+        <span class="marquee-item">не каждый чат заслуживает второго свидания</span>
+        <span class="marquee-sep">&middot;</span>
+        <span class="marquee-item">48 чатов и ни одного серьёзного</span>
+        <span class="marquee-sep">&middot;</span>
+        <span class="marquee-item">red flags в промтах</span>
+        <span class="marquee-sep">&middot;</span>
+        <span class="marquee-item">он не помнит — может, дело не в нём</span>
+        <span class="marquee-sep">&middot;</span>
+        <span class="marquee-item">папки спасают отношения</span>
+        <span class="marquee-sep">&middot;</span>
+        <span class="marquee-item">дорогой, у нас должны быть правила</span>
+        <span class="marquee-sep">&middot;</span>
+        <span class="marquee-item">может ли AI вести меня по жизни</span>
+        <span class="marquee-sep">&middot;</span>
+    </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+    <div class="container">
+        <div class="about-grid">
+            <div class="rv">
+                <p class="about-lead">Пространство для женщин, которые хотят, чтобы AI стал <em>настоящим партнёром</em></p>
+                <ul class="about-roles">
+                    <li>Партнёром в мышлении</li>
+                    <li>Инструментом творчества</li>
+                    <li>Поддержкой в работе и проектах</li>
+                    <li>И иногда даже собеседником</li>
+                </ul>
+            </div>
+            <div class="rv rv-d1">
+                <p class="label">Здесь можно</p>
+                <ul class="about-features">
+                    <li>Делиться находками и инструментами</li>
+                    <li>Задавать вопросы и экспериментировать</li>
+                    <li>Обсуждать, как использовать AI в работе, творчестве и жизни</li>
+                    <li>Смотреть, как интеллект меняет наш способ думать и создавать</li>
+                </ul>
+                <p class="about-note">Это не технический чат и не курс. Это городской разговор о жизни, идеях и AI.</p>
+            </div>
+        </div>
+        <div class="about-closing rv">
+            <p>Иногда это похоже на исследование. Иногда — на игру.</p>
+            <p>Бывает, что на ссору. Но чаще на хороший разговор.</p>
+        </div>
+    </div>
+</section>
+
+<!-- IMAGE BREAK -->
+<section class="img-break">
+    <img src="images/hero.png" alt="AI in the City">
+</section>
+
+<!-- FORMAT -->
+<div class="spacer"></div>
+<section class="container">
+    <p class="label rv">Как это устроено</p>
+    <h2 class="heading rv"><strong>Формула</strong> каждой встречи</h2>
+    <p class="subdesc rv">Колонка-вопрос, разбор кейсов, практика, маленький вывод</p>
+    <div class="format-grid">
+        <div class="f-card rv">
+            <h3>Практикум на 12 занятий</h3>
+            <ul>
+                <li>6 недель</li>
+                <li>2 встречи в неделю</li>
+                <li>60 минут каждая</li>
+                <li>Между встречами — девчачьи обсуждения</li>
+            </ul>
+        </div>
+        <div class="f-card rv rv-d1">
+            <h3>Механика каждой встречи</h3>
+            <ul>
+                <li>10 мин — вход: вопрос серии</li>
+                <li>20 мин — разбор принципа</li>
+                <li>10 мин — практика вживую</li>
+                <li>10 мин — разбор кейсов</li>
+                <li>5 мин — обсуждение</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<div class="spacer"></div>
+
+<!-- PROGRAM -->
+<section class="program" id="program">
+    <div class="container">
+        <div class="program-inner">
+            <div class="rv">
+                <p class="label">Сезон первый</p>
+                <h2 class="heading"><strong>Программа</strong></h2>
+                <div class="program-meta"><span>7 серий</span><span>12 встреч</span><span>6 недель</span></div>
+            </div>
+
+            <div class="spacer-sm"></div>
+
+            <div class="ep rv" tabindex="0" role="button" aria-expanded="false" onclick="toggle(this)">
+                <div class="ep-head"><span class="ep-n">01</span><div class="ep-info"><div class="ep-t">AI, с которым всё несерьёзно</div><div class="ep-sub">Встреча 1–2</div></div><span class="ep-arrow">&#x25BC;</span></div>
+                <div class="ep-body"><div class="ep-inner"><div class="ep-q">И я не могла не задуматься: если я пишу ему каждый день, почему у нас до сих пор нет системы?</div><p class="ep-goal"><strong>Цель:</strong> Понять, как каждая участница уже использует ChatGPT и где теряет силу.</p><ul class="ep-topics"><li>Чем отличается «задать вопрос» от «построить процесс»</li><li>Типы использования AI: работа, контент, личная жизнь, обучение, рефлексия</li><li>Где сейчас больше всего хаоса</li></ul></div></div>
+            </div>
+
+            <div class="ep rv" tabindex="0" role="button" aria-expanded="false" onclick="toggle(this)">
+                <div class="ep-head"><span class="ep-n">02</span><div class="ep-info"><div class="ep-t">Не каждый чат заслуживает второго свидания</div><div class="ep-sub">Встреча 3–4</div></div><span class="ep-arrow">&#x25BC;</span></div>
+                <div class="ep-body"><div class="ep-inner"><div class="ep-q">Почему у меня 48 чатов и ни одного, к которому хочется вернуться?</div><p class="ep-goal"><strong>Цель:</strong> Показать, как отличать разовые чаты от долгих рабочих контуров.</p><ul class="ep-topics"><li>Хаос одноразовых чатов</li><li>Что должно жить в отдельной теме</li><li>Как распознать «повторяющийся процесс»</li><li>Логика контейнеров: личное, работа, контент, обучение</li></ul></div></div>
+            </div>
+
+            <div class="ep rv" tabindex="0" role="button" aria-expanded="false" onclick="toggle(this)">
+                <div class="ep-head"><span class="ep-n">03</span><div class="ep-info"><div class="ep-t">Status: всё сложно, нужен контекст</div><div class="ep-sub">Встреча 5–6</div></div><span class="ep-arrow">&#x25BC;</span></div>
+                <div class="ep-body"><div class="ep-inner"><div class="ep-q">Может ли AI понимать меня, если я каждый раз прихожу к нему как к новому человеку?</div><p class="ep-goal"><strong>Цель:</strong> Объяснить, что такое контекст, память, проекты и почему без этого AI не становится партнером.</p><ul class="ep-topics"><li>Разница между обычным чатом, проектом, памятью и инструкциями</li><li>Как работает контекст</li><li>Почему «он не помнит» часто означает «система не собрана»</li></ul></div></div>
+            </div>
+
+            <div class="ep rv" tabindex="0" role="button" aria-expanded="false" onclick="toggle(this)">
+                <div class="ep-head"><span class="ep-n">04</span><div class="ep-info"><div class="ep-t">Дорогой, у нас должны быть правила</div><div class="ep-sub">Встреча 7–8</div></div><span class="ep-arrow">&#x25BC;</span></div>
+                <div class="ep-body"><div class="ep-inner"><div class="ep-q">Можно ли построить хорошие отношения с AI, если ты не сказала, как с тобой вообще надо работать?</div><p class="ep-goal"><strong>Цель:</strong> Научить писать понятные инструкции для работы внутри проектов.</p><ul class="ep-topics"><li>Зачем нужны проектные инструкции</li><li>Как задать стиль ответов</li><li>Как задать формат: кратко или подробно, по шагам или свободно</li><li>Как задать роль AI в проекте</li></ul></div></div>
+            </div>
+
+            <div class="ep rv" tabindex="0" role="button" aria-expanded="false" onclick="toggle(this)">
+                <div class="ep-head"><span class="ep-n">05</span><div class="ep-info"><div class="ep-t">Папки спасают отношения</div><div class="ep-sub">Встреча 9–10</div></div><span class="ep-arrow">&#x25BC;</span></div>
+                <div class="ep-body"><div class="ep-inner"><div class="ep-q">А что, если проблема была не в AI, а в том, что всё свалено в одно место?</div><p class="ep-goal"><strong>Цель:</strong> Собрать рабочую архитектуру Projects.</p></div></div>
+            </div>
+
+            <div class="ep rv" tabindex="0" role="button" aria-expanded="false" onclick="toggle(this)">
+                <div class="ep-head"><span class="ep-n">06</span><div class="ep-info"><div class="ep-t">Red flags в промтах</div><div class="ep-sub">Встреча 11</div></div><span class="ep-arrow">&#x25BC;</span></div>
+                <div class="ep-body"><div class="ep-inner"><div class="ep-q">Он отвечает красиво. Но помогает ли он мне на самом деле?</div><p class="ep-goal"><strong>Цель:</strong> Научить писать простые и сильные промты без магического мышления.</p><ul class="ep-topics"><li>Слабые промты</li><li>Перегруженные промты</li><li>Промты без цели</li><li>Сильная структура: контекст, задача, критерий результата, формат</li></ul></div></div>
+            </div>
+
+            <div class="ep rv" tabindex="0" role="button" aria-expanded="false" onclick="toggle(this)">
+                <div class="ep-head"><span class="ep-n">07</span><div class="ep-info"><div class="ep-t">Может ли AI вести меня по жизни?</div><div class="ep-sub">Встреча 12</div></div><span class="ep-arrow">&#x25BC;</span></div>
+                <div class="ep-body"><div class="ep-inner"><div class="ep-q">Можно ли доверить ему задачи, если у меня самой всё лежит кучей?</div><p class="ep-goal"><strong>Цель:</strong> Научить использовать AI как партнера по задачам и фокусу.</p><ul class="ep-topics"><li>Weekly planning и daily check-in</li><li>Review и приоритизация</li><li>Анти-перегруз</li></ul></div></div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- AUTHOR -->
+<div class="spacer"></div>
+<section class="container">
+    <div class="author rv">
+        <div class="author-photo">
+            <img src="images/logo-dark.png" alt="Катя">
+        </div>
+        <div>
+            <p class="label">Кто ведёт</p>
+            <h3 class="author-name">Катя</h3>
+            <p class="author-bio">Автор и ведущая пространства AI in the City. Последние пять лет работаю с нейросетями — от технической стороны обучения моделей до того, как AI можно использовать в работе, идеях и повседневной жизни.</p>
+            <p class="author-bio">На этом практикуме я скорее в роли Кэрри Брэдшоу: открываю темы, задаю вопросы и помогаю вам исследовать свои отношения с AI — не только как с технологией, но и как с интеллектуальным партнёром.</p>
+        </div>
+    </div>
+</section>
+<div class="spacer"></div>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+    <div class="container">
+        <h2 class="rv">Готова к <em>серьёзным</em><br>отношениям?</h2>
+        <p class="cta-desc rv rv-d1">6 недель, 12 встреч, и ваши отношения с AI никогда не будут прежними</p>
+        <div class="cta-nums rv rv-d2">
+            <div><div class="cta-num-val">6</div><div class="cta-num-lbl">недель</div></div>
+            <div><div class="cta-num-val">12</div><div class="cta-num-lbl">встреч</div></div>
+            <div><div class="cta-num-val">60</div><div class="cta-num-lbl">минут</div></div>
+        </div>
+        <a href="#" class="cta-big rv rv-d3">Записаться на практикум &rarr;</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <span>AI in the City &copy; 2026</span>
+    <div class="foot-links">
+        <a href="#">Telegram</a>
+        <a href="#">Instagram</a>
+    </div>
+</footer>
+
+<script>
+function toggle(el) {
+    const open = el.classList.toggle('open');
+    el.setAttribute('aria-expanded', open);
+}
+
+document.querySelectorAll('.ep').forEach(ep => {
+    ep.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(ep); }
+    });
+});
+
+const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+const nav = document.querySelector('.nav');
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', scrollY > 60);
+}, { passive: true });
+</script>
+</body>
+</html>
